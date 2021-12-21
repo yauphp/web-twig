@@ -4,8 +4,6 @@ namespace Yauphp\Web\Twig;
 use Yauphp\Web\IView;
 use Yauphp\Http\IOutput;
 use Yauphp\Config\IConfigurable;
-//use Yauphp\Web\Internal\Tags\NumberFormat;
-//use Yauphp\Web\Internal\Tags\Pagination;
 use Yauphp\Config\IConfiguration;
 use Yauphp\Http\Context;
 use Yauphp\Common\IO\Path;
@@ -16,10 +14,8 @@ use Twig\TwigFunction;
 use JSMin\JSMin;
 use Yauphp\Common\Util\StringUtils;
 use Yauphp\Web\IController;
-
-// use swiftphp\io\File;
-// use swiftphp\web\twig\functions\Pagination;
-// use swiftphp\web\twig\filters\NumberFormat;
+use Yauphp\Web\Twig\Filters\NumberFormat;
+use Yauphp\Web\Twig\Functions\Pagination;
 
 class View implements IView, IOutput, IConfigurable
 {
