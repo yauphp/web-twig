@@ -16,7 +16,10 @@ class NumberFormat
      * @param string $separator     千分符号
      * @return string
      */
-    public static function formatNumber($value, $decimals=0, $decimalpoint=".", $separator=","){
+    public static function format($value, $decimals=0, $decimalpoint=".", $separator=","){
+        if($value==null || $value===""){
+            return "";
+        }
         $value=str_replace(",", "", $value);
         if(empty($value)){
             $value=0;
