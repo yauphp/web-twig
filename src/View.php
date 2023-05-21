@@ -315,8 +315,7 @@ class View implements IView, IOutput, IConfigurable
     /**
      * 搜索模板文件
      */
-    private function searchView()
-    {
+    private function searchView(){
         /*
          * 根目录: 相对于配置文件位置定义为根目录.
          * 搜索顺序: 区域根目录->根目录
@@ -419,8 +418,7 @@ class View implements IView, IOutput, IConfigurable
      * @param unknown $html_source
      * @return string|mixed
      */
-    private function compressHtml($html_source)
-    {
+    private function compressHtml($html_source){
         $chunks   = preg_split('/(<!--<nocompress>-->.*?<!--<\/nocompress>-->|<nocompress>.*?<\/nocompress>|<pre.*?\/pre>|<textarea.*?\/textarea>|<script.*?\/script>)/msi', $html_source, -1, PREG_SPLIT_DELIM_CAPTURE);
         $compress = '';
         foreach ($chunks as $c) {
