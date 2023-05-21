@@ -373,19 +373,28 @@ class View implements IView, IOutput, IConfigurable
         }
 
         //搜索顺序
+        $_searchFiles=[];
         $rootDir=$this->getAbsoluteDefaultViewDir();
         foreach ($searchFiles as $file){
             if(!empty($contextDir)){
                 $_file=$rootDir."/".$contextDir."/".$file;
-                if(file_exists($_file)){
-                    return $_file;
-                }
+                $_searchFiles[]=$_file;
             }
             $_file=$rootDir."/".$file;
-            if(file_exists($_file)){
-                return $_file;
+            $_searchFiles[]=$_file; 
+        }
+        $_viewFile="";
+        foreach ($_searchFiles as $file){
+            if(file_exists($file)){
+                $_viewFile=$file;
+                break;
             }
         }
+        if(empty($_viewFile)){
+            $msg="Unable to find a template (looked for: ".implode(", ",$_searchFiles).")";
+            throw new \Exception($msg);
+        }
+        return $_viewFile;
     }
 
     /**
