@@ -222,19 +222,32 @@ class View implements IView, IOutput, IConfigurable
         $file=Path::getFileBaseName($viewFile);
 
         //twig路径
-        $paths=$this->m_paths;
-        if(!in_array($path, $paths)){
-            $paths[]=$path;
+        $paths=[$path];
+        foreach($this->m_paths as $path){
+            if(!in_array($path,$paths) && file_exists($path)){
+                $paths[]=$path;
+            }
         }
 
         //当前默认基本目录
         $rootDir=$this->getAbsoluteDefaultViewDir();
-        if(!in_array($rootDir, $paths)){
+        if(!in_array($rootDir, $paths) && file_exists($rootDir)){
             $paths[]=$rootDir;
         }
+
+        //当前上下文目录
         $contextDir=$rootDir."/".trim($this->m_controller->getContextPath(),"/");
-        if(!in_array($contextDir, $paths)){
+        if(!in_array($contextDir, $paths) && file_exists($contextDir)){
             $paths[]=$contextDir;
+        }
+
+        //当前上下文别名目录
+        $contextAlias=$this->m_controller->getContextPathAlias();
+        if(!empty($contextAlias)){
+            $contextAliasDir=$rootDir."/".trim($contextAlias,"/");
+            if(!in_array($contextAliasDir, $paths) && file_exists($contextAliasDir)){
+                $paths[]=$contextAliasDir;
+            }
         }
 
         //twig配置
@@ -333,6 +346,11 @@ class View implements IView, IOutput, IConfigurable
 
         //上下文路径,控制器,操作
         $contextDir=trim($this->m_controller->getContextPath(),"/");
+        $contextAliasDir="";
+        $contextAlias=$this->m_controller->getContextPathAlias();
+        if(!empty($contextAlias)){
+            $contextAliasDir=trim($contextAlias,"/");
+        }
         $controllerBaseName=get_class($this->m_controller);
         $controllerBaseName=substr($controllerBaseName,strrpos($controllerBaseName, "\\")+1);
         $controllerBaseName=substr($controllerBaseName, 0,strpos($controllerBaseName, "Controller"));
@@ -377,6 +395,10 @@ class View implements IView, IOutput, IConfigurable
         foreach ($searchFiles as $file){
             if(!empty($contextDir)){
                 $_file=$rootDir."/".$contextDir."/".$file;
+                $_searchFiles[]=$_file;
+            }
+            if(!empty($contextAliasDir)){
+                $_file=$rootDir."/".$contextAliasDir."/".$file;
                 $_searchFiles[]=$_file;
             }
             $_file=$rootDir."/".$file;
