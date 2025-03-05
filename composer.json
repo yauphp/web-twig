@@ -11,10 +11,10 @@
 	],
 	"require" : {
 		"php" : ">=8.0.0",
-		"yauphp/core" : "~2.0",
-		"yauphp/common" : "~2.0",
-		"yauphp/config" : "~2.0",
-		"yauphp/web" : "~2.0",
+		"yauphp/core" : "~2.5",
+		"yauphp/common" : "~2.5",
+		"yauphp/config" : "~2.5",
+		"yauphp/web" : "~2.5",
 		"twig/twig" : "^3.5",
 		"mrclay/minify" :"^3.0"
 	},
