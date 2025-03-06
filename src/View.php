@@ -45,7 +45,7 @@ class View implements IView, IOutput, IConfigurable
      * 默认模板基本目录
      * @var string
      */
-    private $m_defaultViewDir="views";
+    private $m_defaultViewDir="Views";
 
     /**
      * 控制器实例
@@ -425,7 +425,7 @@ class View implements IView, IOutput, IConfigurable
         //视图配置目录
         $viewDir=$this->m_defaultViewDir;
         if(empty($viewDir)){
-            $viewDir="views";
+            $viewDir="Views";
         }
         $viewDir=trim($viewDir,"/");
 
